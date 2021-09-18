@@ -1,0 +1,4 @@
+#/bin/bash
+cargo build --release --target wasm32-unknown-unknown
+rm -rf ./public/*.js ./public/*.wasm
+wasm-bindgen target/wasm32-unknown-unknown/release/roguelike.wasm --out-dir public --no-modules --no-typescript

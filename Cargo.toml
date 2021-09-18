@@ -1,0 +1,15 @@
+[workspace]
+members = [
+    "Ex1_walkmap_tile",
+    "Ex1_walkmap_text",
+    "Ex2_interestingMap",
+    "Ex3_FieldOfView",
+    "Ex4_monsters",
+    "Ex5_dealingDamage_2players",
+    "Ex5_dealingDamage_original",
+    "Ex6_gui",
+    "Ex7_Items"
+]
+
+[profile.dev]
+opt-level = 1
