@@ -10,11 +10,13 @@ mod map;
 mod visibility_system;
 mod monster_ai_system;
 mod render_system;
-mod MapIndexing_system;
+mod map_indexing_system;
 mod melee_combat_system;
 mod damage_system;
 mod gui;
 mod spawning;
+mod drop_off_system;
+mod pickup_system;
 
 use visibility_system::VisibilitySystem;
 use bracket_pathfinding::prelude::*;
@@ -26,11 +28,12 @@ use std::cmp::{max, min};
 use crate::map::Map;
 use crate::monster_ai_system::MonsterAI;
 use crate::render_system::RenderSystem;
-use crate::MapIndexing_system::MapIndexingSystem;
+use crate::map_indexing_system::MapIndexingSystem;
 use specs::shred::FetchMut;
 use crate::damage_system::DamageSystem;
 use crate::melee_combat_system::MeleeCombatSystem;
 use crate::gui::GameLog;
+use crate::pickup_system::PickUpSystem;
 
 #[derive(PartialEq, Copy, Clone)]
 pub enum RunState { AwaitingInput, PreRun, PlayerTurn, MonsterTurn }
@@ -72,16 +75,21 @@ impl State {
         self.ecs.register::<Monster>();
         self.ecs.register::<Name>();
         self.ecs.register::<WantsToMelee>();
+        self.ecs.register::<Item>();
+        self.ecs.register::<Consumable>();
+        self.ecs.register::<InBackpack>();
+        self.ecs.register::<WantsToUse>();
+        self.ecs.register::<WantsToPickUp>();
+        self.ecs.register::<WantsToDropOff>();
     }
 
     fn run_systems(&mut self) {
-
         VisibilitySystem {}.run_now(&self.ecs);
         DamageSystem {}.run_now(&self.ecs);
         MeleeCombatSystem {}.run_now(&self.ecs);
         MonsterAI {}.run_now(&self.ecs);
         MapIndexingSystem {}.run_now(&self.ecs);
-
+        PickUpSystem {}.run_now(&self.ecs);
 
 
         self.ecs.maintain();

@@ -37,6 +37,9 @@ pub struct Name  {
 pub struct BlocksTile {}
 
 
+
+
+
 #[derive(Component, Debug)]
 pub struct CombatStats {
     pub max_hp: i32,
@@ -66,5 +69,49 @@ impl SufferDamage {
 pub struct WantsToMelee{
     pub target: Entity
 }
+
+
+
+#[derive(Component,Debug,Clone)]
+pub struct Item{}
+
+#[derive(Component,Debug,Clone)]
+pub struct Consumable{
+    pub hp: i32
+}
+
+#[derive(Component,Debug,Clone)]
+pub struct InBackpack{
+    pub owner: Entity
+}
+
+
+#[derive(Component,Debug,Clone)]
+pub struct WantsToUse {
+    pub owner: Entity,
+    pub target: Entity
+}
+
+#[derive(Component,Debug,Clone)]
+pub struct WantsToPickUp {
+    pub owner: Entity,
+    pub target: Entity
+}
+
+#[derive(Component,Debug,Clone)]
+pub struct WantsToDropOff {
+    pub target: Entity
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
